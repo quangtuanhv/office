@@ -1,0 +1,18 @@
+.copyrights {
+    float: left;
+    width: 100%;
+    clear: both;
+    padding: 10px 0;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    color: #979494;
+}
+#copyright-note {
+    width: 1050px;
+    margin: 0 auto;
+    clear: both;
+    max-width: 100%;
+}
+.top {
+    float: right;
+}
