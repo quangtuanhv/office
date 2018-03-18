@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller {
 	public function index($id) {
-		if (Auth::check()) {
+		
 
 			$send = Messenger::where(function ($query) use ($id) {
 					$query->where('user_1', Auth::id())
@@ -23,19 +23,15 @@ class ChatController extends Controller {
 			$info = Profile::where('id', $id)->first();
 
 			return view('chat.chat', compact('send', 'info'));
-		} else {
-			return redirect('/');
 		}
 	}
 
 	public function chatWithUser() {
-		if (Auth::check()) {
+		
 
 			$user = Profile::with('chucVu', 'donVi')->get();
 
 			return view('chat.chatWithUser', compact('user'));
-		} else {
-			return redirect('/');
 		}
 	}
 

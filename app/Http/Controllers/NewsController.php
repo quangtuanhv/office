@@ -14,7 +14,7 @@ class NewsController extends Controller {
 		
 			$profile = Profile::where('user_id', $id)->first();
 			return view('news.postNews', compact('profile'));
-		} 
+		
 	}
 	public function postNews(Request $req, $id) {
 		$news             = new News;
@@ -30,7 +30,7 @@ class NewsController extends Controller {
 			$post = News::orderBy('id', 'desc')->get();
 
 			return view('news.ListNews', compact('post', 'user'));
-		} 
+		
 	}
 	public function getdetail($id) {
 		
@@ -38,7 +38,7 @@ class NewsController extends Controller {
 			$news = News::where('id', $id)->first();
 			$cmt  = Comment::where('post_id', $id)->get();
 			return view('news.detail', compact('news', 'cmt'));
-		} 
+		
 	}
 	public function getDown($url) {
 		return response()->download($url);

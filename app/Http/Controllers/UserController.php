@@ -60,7 +60,7 @@ class UserController extends Controller {
 			}
 			return view('user.updateProfile', ['chucVu' => $chucVu, 'donVi' => $donVi, 'role' => $role, 'user' => $user]);
 		}
-	}
+	
 	public function postUpdate(Request $req, $id) {
 		$user = Profile::where('id', $id)->first();
 		if ($user == null) {
@@ -86,13 +86,13 @@ class UserController extends Controller {
 			$us   = Profile::with('chucVu', 'donVi')->get();
 			return view('contact.showContact', compact('user', 'us'));
 		}
-	}
+	
 	public function getShow($id) {
 		
 			$user = Profile::where('user_id', $id)->first();
 
 			return view('user.detail', compact('user'));
-		}
+	
 	}
 	public function ajaxLogin(Request $req) {
 		$name = $_GET["name"];
