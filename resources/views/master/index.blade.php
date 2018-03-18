@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{asset('css/footer.css')}}">
     <link rel="stylesheet" href="{{asset('css/css.css')}}">
     <script src="{{asset('admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('js/notify.min.js')}}"></script>
 </head>
 
 <body>
@@ -53,7 +54,6 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="{{asset('admin/bower_components/metisMenu/dist/metisMenu.min.js')}}"></script>
     {{--  --}}
-    <script src="{{asset('js/notify.min.js')}}"></script>
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('/admin/dist/js/sb-admin-2.js')}}"></script>
 

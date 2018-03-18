@@ -54,7 +54,7 @@
                 </div>
                 <div class="panel-body">
 
-                    <form role="form" action="{{route('dangnhap')}}" method="post">
+                    <form role="form" action="{{route('login')}}" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <fieldset>
                             <div style="color: red;" class="form-group">

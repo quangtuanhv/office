@@ -11,12 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller {
 	public function getNews($id) {
-		if (Auth::check()) {
+		
 			$profile = Profile::where('user_id', $id)->first();
 			return view('news.postNews', compact('profile'));
-		} else {
-			return redirect('/');
-		}
+		} 
 	}
 	public function postNews(Request $req, $id) {
 		$news             = new News;
@@ -28,23 +26,19 @@ class NewsController extends Controller {
 		return redirect('listNews')->with('success');
 	}
 	public function getlistNews() {
-		if (Auth::check()) {
+		
 			$post = News::orderBy('id', 'desc')->get();
 
 			return view('news.ListNews', compact('post', 'user'));
-		} else {
-			return redirect('/');
-		}
+		} 
 	}
 	public function getdetail($id) {
-		if (Auth::check()) {
+		
 
 			$news = News::where('id', $id)->first();
 			$cmt  = Comment::where('post_id', $id)->get();
 			return view('news.detail', compact('news', 'cmt'));
-		} else {
-			return redirect('/');
-		}
+		} 
 	}
 	public function getDown($url) {
 		return response()->download($url);

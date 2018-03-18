@@ -26,7 +26,7 @@ class UserController extends Controller {
 		}
 	}
 
-	public function dangnhap(Request $request) {
+	public function login(Request $request) {
 
 		$data = [
 		'name'     => $request->name,
@@ -49,7 +49,7 @@ class UserController extends Controller {
 		return redirect('/');
 	}
 	public function getUpdate($id) {
-		if (Auth::check()) {
+		
 			$chucVu = ChucVu::all();
 			$donVi  = DonVi::all();
 			$role   = Role::all();
@@ -59,8 +59,6 @@ class UserController extends Controller {
 				return view('user.newProfile', ['chucVu' => $chucVu, 'donVi' => $donVi, 'role' => $role, 'acc' => $acc]);
 			}
 			return view('user.updateProfile', ['chucVu' => $chucVu, 'donVi' => $donVi, 'role' => $role, 'user' => $user]);
-		} else {
-			return redirect('/');
 		}
 	}
 	public function postUpdate(Request $req, $id) {
@@ -83,21 +81,17 @@ class UserController extends Controller {
 		return redirect('/');
 	}
 	public function getShowUser() {
-		if (Auth::check()) {
+		
 			$user = Profile::with('chucVu', 'donVi')->get();
 			$us   = Profile::with('chucVu', 'donVi')->get();
 			return view('contact.showContact', compact('user', 'us'));
-		} else {
-			return redirect('/');
 		}
 	}
 	public function getShow($id) {
-		if (Auth::check()) {
+		
 			$user = Profile::where('user_id', $id)->first();
 
 			return view('user.detail', compact('user'));
-		} else {
-			return redirect('/');
 		}
 	}
 	public function ajaxLogin(Request $req) {

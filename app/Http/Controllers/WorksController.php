@@ -37,17 +37,34 @@ class WorksController extends Controller {
 	}
 	public function getCongViec($id) {
 		$work = Work::where('id', $id)->first();
-		return view('works.DetailWork', compact('work'));
+			$dv = DonVi::all();
+		return view('works.DetailWork', compact('work','dv'));
 	}
 
 	public function getPerson()
 	{
 		$id_donvi=$_GET["id_donvi"];
 		$list = Profile::where('donVi_id',$id_donvi)->get();
-		
+
 		foreach ($list as $row) {
 			echo '<option value="'.$row["id"].'">'.$row["fullname"].'</option>';
 		}
+	}
+	public function getStatus(){
+		$status=$_GET["status"];
+		$post_id    =$_GET['post_id'];
+		$post = Work::where('id',$post_id)->first();
+		$post->status = $status;
+		$post->save();
+		return "thay đổi trạng thái thành công !";
+	}
+	public function sendto(){
+		$post_id = $_GET["post_id"];
+		$user_id = $_GET["id_user"];
+		$post = Work::where('id',$post_id)->first();
+		$post->user_id_receive = $user_id;
+		$post->save();
+		echo " Chuyển việc thành công.";
 	}
 
 }

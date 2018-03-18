@@ -8,12 +8,16 @@ Route::get('/', function () {
 			return view('user.login');
 		}
 	});
+Route::get('login',function(){
+	return view('user.login');
+});
+Route::group(['middleware'=>'auth'],function(){
 Route::get('checkName', 'UserController@ajaxLogin');
 Route::get('dangkytaikhoanmoi', function () {
 		return view('user.register');
 	});
 Route::post('dangky', 'UserController@dangky')->name('dangky');
-Route::post('dangnhap', 'UserController@dangnhap')->name('dangnhap');
+Route::post('login', 'UserController@login')->name('login');
 Route::get('logout', 'UserController@logout')->name('logout');
 Route::get('updateProfile/{id?}', 'UserController@getUpdate')->name('updateProfile');
 Route::post('updateProfile/{id?}', 'UserController@postUpdate')->name('updateProfile');
@@ -40,6 +44,8 @@ Route::post('postCongViec/{id?}', 'WorksController@postWork')->name('postCV');
 Route::get('danh-sach-cong-viec-giao/{id?}', 'WorksController@DanhSachViecGiao')->name('send');
 Route::get('chi-tiet-cong-viec/{id?}', 'WorksController@getCongViec');
 Route::get('getPerson','WorksController@getPerson');
+Route::get('getStatus','WorksController@getStatus');
+Route::get('sendto','WorksController@sendto');
 // lịch cộng tác cơ quan
 Route::get('tao-moi-lich-cong-tac/{id?}', 'TaskController@getLich');
 Route::get('tao-lich-cong-tac/', 'TaskController@postLich')->name('postLich');
@@ -49,3 +55,4 @@ Route::get('lich-cong-tac/{id?}','TaskController@showLich');
 Route::get('tao-moi-lich-cong-tac-don-vi/{id?}', 'TaskDonviController@getLich');
 Route::get('tao-lich-cong-tac-don-vi/', 'TaskDonviController@postLich')->name('postLich');
 Route::get('lich-cong-tac-don-vi/{id?}','TaskDonviController@showLich');
+});

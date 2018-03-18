@@ -58,14 +58,17 @@
  			<li>
  				<a href="#" ><i class="fa fa-exchange fa-fw"></i> Xử lý công việc<span class="fa arrow"></span></a>
  				<ul class="nav nav-second-level">
+					@if((Auth::user()->profile->role->nameRole=='lever_3') or
+						(Auth::user()->profile->role->nameRole=='lever_2') )
  					<li>
  						<a href="{{route('newWork')}}">Tạo mới công việc</a>
  					</li>
  					<li>
- 						<a href="{{route('receive',Auth::id())}}">Công việc nhận</a>
- 					</li>
- 					<li>
  						<a href="{{route('send',Auth::id())}}">Công việc giao</a>
+ 					</li>
+ 					@endif
+ 					<li>
+ 						<a href="{{route('receive',Auth::id())}}">Công việc nhận</a>
  					</li>
  				</ul>
  				<!-- /.nav-second-level -->

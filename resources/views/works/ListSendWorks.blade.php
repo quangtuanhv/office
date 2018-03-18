@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">
-					<small>Tin nội bộ</small>
+					<small>Công việc giao </small>
 				</h1>
 			</div>
 			@if(session('success'))

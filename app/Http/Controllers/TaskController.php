@@ -4,8 +4,8 @@ use App\Profile;
 use App\Task;
 
 use Illuminate\Support\Facades\Auth;
-
 class TaskController extends Controller {
+	
 	public function getLich($id) {
 		$user = Profile::all();
 		return view('tasks.newTask', compact('user','id'));
