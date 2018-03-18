@@ -26,7 +26,7 @@ class UserController extends Controller {
 		}
 	}
 
-	public function login(Request $request) {
+	public function postLogin(Request $request) {
 
 		$data = [
 		'name'     => $request->name,

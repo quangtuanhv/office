@@ -8,16 +8,18 @@ Route::get('/', function () {
 			return view('user.login');
 		}
 	});
-Route::get('login',function(){
-	return view('user.login');
-});
-Route::group(['middleware'=>'auth'],function(){
+// Route::get('login',function(){
+// 	return view('user.login');
+// });
+Route::post('login', 'UserController@postLogin')->name('login');
 Route::get('checkName', 'UserController@ajaxLogin');
+
+Route::group(['middleware'=>'auth'],function(){
 Route::get('dangkytaikhoanmoi', function () {
 		return view('user.register');
 	});
 Route::post('dangky', 'UserController@dangky')->name('dangky');
-Route::post('login', 'UserController@login')->name('login');
+
 Route::get('logout', 'UserController@logout')->name('logout');
 Route::get('updateProfile/{id?}', 'UserController@getUpdate')->name('updateProfile');
 Route::post('updateProfile/{id?}', 'UserController@postUpdate')->name('updateProfile');
