@@ -8,9 +8,9 @@ Route::get('/', function () {
 			return view('user.login');
 		}
 	});
-// Route::get('login',function(){
-// 	return view('user.login');
-// });
+Route::get('login',function(){
+	return view('user.login');
+});
 Route::post('login', 'UserController@postLogin')->name('login');
 Route::get('checkName', 'UserController@ajaxLogin');
 
@@ -18,8 +18,11 @@ Route::group(['middleware'=>'auth'],function(){
 Route::get('dangkytaikhoanmoi', function () {
 		return view('user.register');
 	});
-Route::post('dangky', 'UserController@dangky')->name('dangky');
+Route::get('so-do-to-chuc',function(){
+	return view('master.dig');
+});
 
+Route::post('dangky', 'UserController@dangky')->name('dangky');
 Route::get('logout', 'UserController@logout')->name('logout');
 Route::get('updateProfile/{id?}', 'UserController@getUpdate')->name('updateProfile');
 Route::post('updateProfile/{id?}', 'UserController@postUpdate')->name('updateProfile');
@@ -57,4 +60,8 @@ Route::get('lich-cong-tac/{id?}','TaskController@showLich');
 Route::get('tao-moi-lich-cong-tac-don-vi/{id?}', 'TaskDonviController@getLich');
 Route::get('tao-lich-cong-tac-don-vi/', 'TaskDonviController@postLich')->name('postLich');
 Route::get('lich-cong-tac-don-vi/{id?}','TaskDonviController@showLich');
+//Công văn
+Route::get('xu-ly-cong-van',function(){
+	return view('terms-provincial.newTermProvincial');
+});
 });

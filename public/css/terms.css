@@ -1,0 +1,12 @@
+select.do_khan {margin-left: 20%;}
+select.loai_vanban {margin-left: 60px;}
+input.so_hieu {
+    margin-left: 23%;
+    width: 45%;
+}
+select.nguoi_gui_term {
+    width: 45%;
+}
+input.ngaygui_term {
+    margin-left: 3%;
+}

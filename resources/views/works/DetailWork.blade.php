@@ -10,8 +10,8 @@
 			</div>
 			{!!$work->content!!}
 			@if($work->file!=null)
-			<p>File đính kèm </p>
-			<a href="{{route('download',$work->file)}}">xem </a>
+			Tải về
+			<a href="{{route('download',$work->file)}}">File đính kèm</a>
 			@endif
 		</div>
 		<!-- /.row -->

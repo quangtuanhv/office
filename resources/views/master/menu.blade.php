@@ -130,6 +130,9 @@
  				</ul>
  				<!-- /.nav-second-level -->
  			</li>
+      <li>
+ 				<a href="{{url('so-do-to-chuc')}}"><i class="fa fa-sitemap fa-fw"></i> Sơ đồ tổ chức</a>
+ 			</li>
  		</ul>
  	</div>
  	<!-- /.sidebar-collapse -->

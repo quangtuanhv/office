@@ -23,7 +23,8 @@
 
     <!-- DataTables CSS -->
     <link href="{{asset('admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css')}}" rel="stylesheet">
-
+{{--  --}}
+    <link rel="stylesheet" href="{{asset('/css/terms.css')}}">
     <!-- DataTables Responsive CSS -->
     <link href="{{asset('admin/bower_components/datatables-responsive/css/dataTables.responsive.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/profile.css')}}">
@@ -41,6 +42,7 @@
         <!-- Page Content -->
         @yield('content')
         <!-- /#page-wrapper -->
+        <br>
         @include('master.footer')
     </div>
     <!-- /#wrapper -->

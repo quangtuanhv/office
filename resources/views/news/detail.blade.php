@@ -6,12 +6,12 @@
 			<div class="col-lg-12 page-header">
 				<h1>{{$news->title}}</h1>
 				Đăng bởi: {{$news->user->profile->fullname}}
-
+				<span><i class="fa fa-clock-o fw">  {{$news->updated_at}}</i></span>
 			</div>
 			{!!$news->content!!}
 			@if($news->file!=null)
-			<p>File đính kèm </p>
-			<a href="{{route('download',$news->file)}}">xem </a>
+			Tải về
+			<a href="{{route('download',$news->file)}}">File đính kèm</a>
 			@endif
 		</div>
 		<!-- /.row -->
@@ -58,13 +58,13 @@
 			<textarea style="width: 100%; height: 50px" id="noidung" ></textarea><br>
 			<button style="float: right;" class="btn btn-success" id="comment">Bình luận</button>
 		</div>
-		<br>
-		<br>
-		<br>
-	</div>
-	<!-- /.container-fluid -->
-</div>
 
+	</div>
+	<!-- /.container-fluid --><br>
+	<br>
+	<br>
+</div>
+<br>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#comment").click(function(){
