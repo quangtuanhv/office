@@ -19,22 +19,22 @@
 								</div>
 								@foreach($send as $send)
 								<div class="chat">
-								@if($send->user_1== Auth::id())
-								<div class="chat_right">
-								<h5>Tôi</h5>
-								<p>{{$send->content}}</p>
-								</div>
+									@if($send->user_1== Auth::id())
+									<div class="chat_right">
+										<h5>Tôi</h5>
+										<p>{{$send->content}}</p>
+									</div>
 
-								@else
-								<div class="chat_left">
-								<h5>{{$info->fullname}}</h5>
-								<p>{{$send->content}}</p>
-								</div>
-								@endif
+									@else
+									<div class="chat_left">
+										<h5>{{$info->fullname}}</h5>
+										<p>{{$send->content}}</p>
+									</div>
+									@endif
 								</div>
 								@endforeach
 							</div>
-							<div>
+							<div class="main-chat">
 								<form action="{{$info->user_id}}" method="POST">
 									{{csrf_field()}}
 									<br>

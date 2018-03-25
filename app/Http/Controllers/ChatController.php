@@ -24,7 +24,7 @@ class ChatController extends Controller {
 
 			return view('chat.chat', compact('send', 'info'));
 		}
-	}
+	
 
 	public function chatWithUser() {
 		
@@ -32,7 +32,7 @@ class ChatController extends Controller {
 			$user = Profile::with('chucVu', 'donVi')->get();
 
 			return view('chat.chatWithUser', compact('user'));
-		}
+		
 	}
 
 	public function postSendMessage(Request $req, $id) {

@@ -33,17 +33,18 @@
 					<option value="2">Hoàn thành</option>
 					<option value="3">Trễ hạn</option>
 				</select>
-				{{-- <label class="radio-inline">
-					<input type="radio" name="status" id="check_1" value="1" checked >Chưa hoàn thành
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="status" value="2" id="check_2">Đã hoàn thành
-				</label>
-				<label class="radio-inline">
-					<input type="button" name="status" value="xác nhận" id="check_2">
-				</label> --}}
 			</form>
 		</div>
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				<small>Ngày hết hạn:</small>
+				<small>{{$work->deadline}}</small>
+			</h1>
+		</div>
+		@if((Auth::user()->profile->role->nameRole=='lever_3')
+		or
+		(Auth::user()->profile->role->nameRole=='lever_2'))
+ 					
 		<div class="col-lg-12">
 			<h1 class="page-header">
 				<small>Chuyển tiếp công việc</small>
@@ -61,7 +62,7 @@
 			</select><br>
 			<button type="button" id="sendWork">Chuyển tiếp</button>
 		</div>
-
+		@endif
 	</div>
 	<!-- /.container-fluid -->
 </div>

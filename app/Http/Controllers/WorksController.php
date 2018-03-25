@@ -29,7 +29,7 @@ class WorksController extends Controller {
 		$work->status          = 1;
 		$work->file            = $req->file;
 		$work->save();
-		return redirect()->route('send',['id'=>Auth::id()])->with('success');
+		return redirect()->route('send',['id'=>Auth::id()]);
 	}
 	public function DanhSachViecGiao($id) {
 		$work = Work::orderBy('id', 'desc')->where('user_id_send', $id)->get();
@@ -37,7 +37,7 @@ class WorksController extends Controller {
 	}
 	public function getCongViec($id) {
 		$work = Work::where('id', $id)->first();
-			$dv = DonVi::all();
+		$dv = DonVi::all();
 		return view('works.DetailWork', compact('work','dv'));
 	}
 
@@ -67,4 +67,35 @@ class WorksController extends Controller {
 		echo " Chuyển việc thành công.";
 	}
 
+
+	public function editWork($id){
+		$user = Profile::all();
+		$dv = DonVi::all();
+		$work = Work::where('id',$id)->first();
+		return view('works.edit',compact('work','user','dv'));
+	}
+	public function postEditWork(Request $req,$id){
+		$job = Work::where('id',$id)->first();
+		if ((Auth::user()->profile->role->nameRole=='lever_3') or
+ 						(Auth::id()==$job->user_id_send)) {
+			return redirect("khong-du-quyen");
+		}
+		else{
+			
+			$job->title           = $req->title;
+			$job->user_id_send    = Auth::id();
+			$job->user_id_receive = $req->user_id_receive;
+			$job->receive_date    = $req->receive;
+			$job->content         = $req->content;
+			$job->deadline        = $req->deadline;
+			$job->status          = 1;
+			$job->file            = $req->file;
+			$job->save();
+			$work = Work::orderBy('id', 'desc')->where('user_id_send', Auth::id())->get();
+
+			return redirect()->route('send',['id'=>Auth::id()]);
+		}
+
+	}
+	
 }

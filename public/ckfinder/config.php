@@ -8,7 +8,6 @@
 
 /*============================ PHP Error Reporting ====================================*/
 // http://docs.cksource.com/ckfinder3-php/debugging.html
-
 // Production
 error_reporting(E_ALL&~E_DEPRECATED&~E_STRICT);
 ini_set('display_errors', 0);
@@ -32,8 +31,8 @@ $config['authentication'] = function () {
 /*============================ License Key ============================================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_licenseKey
 
-$config['licenseName'] = '';
-$config['licenseKey']  = '';
+$config['licenseName'] = 'localhost';
+$config['licenseKey']  = 'FHCHF5FFR3M4CSSLQQ6T4FM3PMFCC';
 
 /*============================ CKFinder Internal Directory ============================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_privateDir
@@ -66,7 +65,7 @@ $config['images'] = array(
 $config['backends'][] = array(
 	'name'    => 'default',
 	'adapter' => 'local',
-	'baseUrl' => '/ckfinder/userfiles/',
+	'baseUrl' => '/ckfinder/upload/public/',
 	//  'root'         => '', // Can be used to explicitly set the CKFinder user files directory.
 	'chmodFiles'         => 0777,
 	'chmodFolders'       => 0755,

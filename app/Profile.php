@@ -31,4 +31,7 @@ class Profile extends Model {
 	public function task(){
 		return $this->hasMany('App\Task','profile_id','id');
 	}
+	public function document() {
+		return $this->hasMany('App\Document', 'accept', 'id');
+	}
 }

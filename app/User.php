@@ -37,5 +37,8 @@ class User extends Authenticatable {
 	public function messenger() {
 		return $this->hasMany('App\Messenger', 'user_1', 'id');
 	}
+	public function document() {
+		return $this->hasMany('App\Document', 'user_id', 'id');
+	}
 
 }

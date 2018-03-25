@@ -23,9 +23,10 @@
 					</tr>
 				</thead>
 				<tbody>
+					<!-- {{$i=1}}-->
 					@foreach($work as $work)
 					<tr class="odd gradeX" align="center">
-						<td>{{$work->id}}</td>
+						<td>{{$i,$i++}}</td>
 						<td>{{$work->user->profile->fullname}}</td>
 						<td>{{$work->title}}</td>
 						<td>{{$work->receive_date}}</td>
@@ -40,7 +41,14 @@
 							Trễ hạn
 							@endif
 						</td>
-						<td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#">Edit</a></td>
+						<td class="center"><i class="fa fa-trash-o  fa-fw"></i>
+						@if ((Auth::user()->profile->role->nameRole=='lever_3') or
+ 						(Auth::id()==$work->user_id_send))
+							<a href="{{url('edit-work',$work->id)}}">Edit</a></td>
+						@else
+							<a href="{{url('khong-du-quyen')}}">Edit</a></td>
+
+						@endif
 					</tr>
 					@endforeach
 				</tbody>

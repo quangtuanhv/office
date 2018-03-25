@@ -50,16 +50,13 @@
  					<li>
  						<a href="{{url('lich-cong-tac-don-vi',Auth::id())}}">Lịch công tác tuần đơn vị</a>
  					</li>
- 					{{-- <li>
- 						<a href="{{url('lich-cong-tac',Auth::id())}}">Lịch công tác tuần cá nhân</a>
- 					</li> --}}
  				</ul>
  			</li>
  			<li>
  				<a href="#" ><i class="fa fa-exchange fa-fw"></i> Xử lý công việc<span class="fa arrow"></span></a>
  				<ul class="nav nav-second-level">
-					@if((Auth::user()->profile->role->nameRole=='lever_3') or
-						(Auth::user()->profile->role->nameRole=='lever_2') )
+ 					@if((Auth::user()->profile->role->nameRole=='lever_3') or
+ 						(Auth::user()->profile->role->nameRole=='lever_2'))
  					<li>
  						<a href="{{route('newWork')}}">Tạo mới công việc</a>
  					</li>
@@ -77,13 +74,13 @@
  				<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản tỉnh<span class="fa arrow"></span></a>
  				<ul class="nav nav-second-level">
  					<li>
- 						<a href="#">Văn bản đến</a>
+ 						<a href="{{url('cong-van-can-duyet-cap-tinh')}}">Văn bản chờ duyệt</a>
  					</li>
  					<li>
- 						<a href="#">Văn bản đi</a>
+ 						<a href="{{url('cong-van-cap-tinh')}}">Văn bản tỉnh </a>
  					</li>
  					<li>
- 						<a href="#">Xử lý văn bản</a>
+ 						<a href="{{url('cong-van-cap-tinh-da-duyet')}}">Văn bản đã xử lý</a>
  					</li>
  				</ul>
  				<!-- /.nav-second-level -->
@@ -92,13 +89,13 @@
  				<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản đơn vị<span class="fa arrow"></span></a>
  				<ul class="nav nav-second-level">
  					<li>
- 						<a href="#">Văn bản đến</a>
+ 						<a href="{{url('cong-van-can-duyet-cap-donvi',Auth::user()->profile->donVi_id)}}">Văn bản chờ duyệt</a>
  					</li>
  					<li>
- 						<a href="#">Văn bản đi</a>
+ 						<a href="{{url('cong-van-cap-don-vi')}}">Văn bản đơn vị</a>
  					</li>
  					<li>
- 						<a href="#">Xử lý văn bản</a>
+ 						<a href="{{url('cong-van-cap-don-vi-da-duyet')}}">Văn bản đã xử lý </a>
  					</li>
  				</ul>
  				<!-- /.nav-second-level -->
@@ -107,14 +104,15 @@
  				<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản cá nhân<span class="fa arrow"></span></a>
  				<ul class="nav nav-second-level">
  					<li>
- 						<a href="#">Văn bản đến</a>
+ 						<a href="{{url('xu-ly-cong-van',1)}}">Gửi văn bản đến tỉnh</a>
  					</li>
  					<li>
- 						<a href="#">Văn bản đi</a>
+ 						<a href="{{url('xu-ly-cong-van',2)}}">Gửi văn bản đến đơn vị</a>
  					</li>
  					<li>
- 						<a href="#">Xử lý văn bản</a>
+ 						<a href="{{url('cong-van-da-gui',Auth::id())}}">Văn bản đã gửi</a>
  					</li>
+ 					
  				</ul>
  				<!-- /.nav-second-level -->
  			</li>
@@ -130,7 +128,7 @@
  				</ul>
  				<!-- /.nav-second-level -->
  			</li>
-      <li>
+ 			<li>
  				<a href="{{url('so-do-to-chuc')}}"><i class="fa fa-sitemap fa-fw"></i> Sơ đồ tổ chức</a>
  			</li>
  		</ul>

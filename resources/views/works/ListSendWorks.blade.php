@@ -8,9 +8,7 @@
 					<small>Công việc giao </small>
 				</h1>
 			</div>
-			@if(session('success'))
-				<param class="kiemtra" value="true">
-			@endif
+			
 			<!-- /.col-lg-12 -->
 			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
 				<thead>
@@ -44,7 +42,7 @@
 							Trễ hạn
 							@endif
 						</td>
-						<td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#">Edit</a></td>
+						<td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="{{url('edit-work',$work->id)}}">Edit</a></td>
 					</tr>
 					@endforeach
 				</tbody>

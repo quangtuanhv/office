@@ -15,9 +15,9 @@
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-user fa-fw"></i>
-                {{-- @if(Auth::user()->profile->fullname!=null)
+                
                 {{Auth::user()->profile->fullname}}
-                @endif --}}
+                
                 <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">

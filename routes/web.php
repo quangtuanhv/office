@@ -51,8 +51,11 @@ Route::get('chi-tiet-cong-viec/{id?}', 'WorksController@getCongViec');
 Route::get('getPerson','WorksController@getPerson');
 Route::get('getStatus','WorksController@getStatus');
 Route::get('sendto','WorksController@sendto');
+Route::get('edit-work/{id}','WorksController@editWork');
+Route::post('edit-work/{id?}','WorksController@postEditWork')->name('editWork');
+
 // lịch cộng tác cơ quan
-Route::get('tao-moi-lich-cong-tac/{id?}', 'TaskController@getLich');
+Route::get('tao-moi-lich-cong-tac/{id?}', 'TaskController@getLich')->middleware('checkLever');	
 Route::get('tao-lich-cong-tac/', 'TaskController@postLich')->name('postLich');
 Route::get('lich-cong-tac/{id?}','TaskController@showLich');
 
@@ -61,7 +64,21 @@ Route::get('tao-moi-lich-cong-tac-don-vi/{id?}', 'TaskDonviController@getLich');
 Route::get('tao-lich-cong-tac-don-vi/', 'TaskDonviController@postLich')->name('postLich');
 Route::get('lich-cong-tac-don-vi/{id?}','TaskDonviController@showLich');
 //Công văn
-Route::get('xu-ly-cong-van',function(){
-	return view('terms-provincial.newTermProvincial');
+Route::get('xu-ly-cong-van/{id?}','DocumentController@newDocument');
+Route::post('save-document/{id?}','DocumentController@saveDocument')->name('save-document');
+Route::get('cong-van-can-duyet-cap-tinh','DocumentController@showDocument')->middleware('checkLever');
+Route::get('chi-tiet-cong-van/{id?}','DocumentController@showDetail');
+Route::get('changeStatusDocument','DocumentController@ajaxChangeStatus');
+Route::get('cong-van-cap-tinh','DocumentController@showDocumentTinh');
+Route::get('chi-tiet-cong-van-da-duyet/{id?}','DocumentController@showDetailDaDuyet');
+Route::get('cong-van-cap-tinh-da-duyet','DocumentController@showAllDocumentTinh')->middleware('checkLever');
+Route::get('cong-van-da-gui/{id?}','DocumentController@ListOfSentDocument');
+
+Route::get('cong-van-can-duyet-cap-donvi/{id?}','DocumentController@showDocumentlever2')->middleware('checkLever2');
+Route::get('cong-van-cap-don-vi','DocumentController@showDocumentDonVi');
+Route::get('cong-van-cap-don-vi-da-duyet','DocumentController@showAllDocumentDonVi');
+//không đủ quyền
+Route::get('khong-du-quyen',function(){
+	return view('errors.notHaveRole');
 });
 });
