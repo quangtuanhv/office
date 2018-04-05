@@ -3,10 +3,12 @@
 <div id="page-wrapper">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-10">
 				<h1 class="page-header">
-					<small>Văn bản đã duyệt </small>
+					<small>Văn bản đến </small>
+					<small style="float: right;"><a href="{{url('tao-van-ban')}}" class="btn btn-default">Tạo công văn</a></small>
 				</h1>
+				
 			</div>
 			<!-- /.col-lg-12 -->
 			<table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -14,33 +16,31 @@
 					<tr align="center">
 						<th>STT</th>
 						<th>Số/Ký hiệu</th>
-						<th>Ngày tháng của văn bản</th>
-						<th>Người yêu cầu</th>
+						<th>Ngày hết hạn</th>
+						<th>Đơn vị ban hành</th>
 						<th>Trạng thái</th>
 						<th>Trích yếu</th>
-						<th>Đơn vị tham mưu</th>
 						<th>Chi tiết</th>
 					</tr>
 				</thead>
 				<tbody><!-- {{$i=1}}-->
-					@foreach($congvan as $cv)
+					@foreach($doc as $cv)
 					<tr class="odd gradeX" align="center">
 						<td>{{$i,$i++}}</td>
-						<td>{{$cv->symbol}}</td>
-						<td>{{$cv->updated_at}}</td>
-						<td>{{$cv->profile->fullname}}</td>
+						<td>{{$cv->so_van_ban}}</td>
+						<td>{{$cv->ngay_het_han}}</td>
+						<td>{{$cv->donvi->tenDonVi}}</td>
 						<td>
-						@if($cv->status==1)
+						@if($cv->trang_thai==1)
 						Chờ duyệt
-						@elseif($cv->status==2)
+						@elseif($cv->trang_thai==2)
+						Đang duyệt
+						@elseif($cv->trang_thai==3)
 						Đã duyệt
-						@elseif($cv->status==3)
-						Bỏ qua
 						@endif
 						</td>
-						<td>{{$cv->title}}</td>
-						<td>{{$cv->donVi->tenDonVi}}</td>
-						<td class="center"><i class="fa fa-info fa-fw"></i><a href="{{url('chi-tiet-cong-van-da-duyet',$cv->id)}}">Chi tiết</a></td>
+						<td>{{$cv->trich_yeu}}</td>
+						<td class="center"><i class="fa fa-info fa-fw"></i><a href="{{url('chi-tiet-cong-van-den',$cv->id)}}">Chi tiết</a></td>
 					</tr>
 					@endforeach
 				</tbody>

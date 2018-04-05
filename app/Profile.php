@@ -34,4 +34,7 @@ class Profile extends Model {
 	public function document() {
 		return $this->hasMany('App\Document', 'accept', 'id');
 	}
+	public function sendDocument(){
+		return $this->hasMany('App\SendDocument','nguoichuyen','id');
+	}
 }

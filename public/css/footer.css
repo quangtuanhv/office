@@ -16,3 +16,16 @@
 .top {
     float: right;
 }
+
+nav{
+    background-image: url(../methu.jpg);
+    background-size: 100%;
+    background-position: center;
+
+    height: 250px;
+}
+.navbar-header>img{
+    margin: 5%;
+    width: 35%;
+    
+}

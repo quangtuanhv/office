@@ -40,5 +40,7 @@ class User extends Authenticatable {
 	public function document() {
 		return $this->hasMany('App\Document', 'user_id', 'id');
 	}
-
+	public function sendDocument(){
+		return $this->hasMany('App\SendDocument','nguoinhan','id');
+	}
 }

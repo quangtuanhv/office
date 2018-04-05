@@ -81,4 +81,13 @@ Route::get('cong-van-cap-don-vi-da-duyet','DocumentController@showAllDocumentDon
 Route::get('khong-du-quyen',function(){
 	return view('errors.notHaveRole');
 });
+//van ban
+Route::get('van-ban-den', 'DocumentController@vanbanden_captinh');
+Route::get('tao-van-ban','DocumentController@taovanban');
+Route::post('luu-van-ban/{id?}','DocumentController@luuvanban')->name('luuvanban');
+Route::get('chi-tiet-cong-van-den/{id?}','DocumentController@getCongVanDen');
+Route::post('chuyen-cong-van-den/{id}','DocumentController@postChuyenCongVan')->name('chuyen-tiep');
+Route::get('xu-ly-van-ban/{id?}','DocumentController@getXuLyVanBan')->name('xu-ly-van-ban');
+Route::get('tao-van-ban-tra-loi/{id?}','DocumentController@getReply');
+Route::get('danh-sach-xu-ly-van-ban', 'DocumentController@getlistxuly');
 });

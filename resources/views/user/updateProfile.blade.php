@@ -20,6 +20,7 @@
                     <label>Họ và tên:</label>
                     <input type="text" class="form-control" name="fullname" value="{{$user->fullname}}" />
                 </div>
+                @if(Auth::user()->profile->role_id==3)
                 <div class="form-group">
                     <label>Đơn vị</label>
                     <select class="form-control" name="donVi_id">
@@ -44,6 +45,12 @@
                         @endforeach
                     </select>
                 </div>
+                @else
+                <input type="hidden" name="chucVu_id" value="{{$user->chucVu_id}}">
+                <input type="hidden" name="role_id" value="{{$user->role_id}}">
+                <input type="hidden" name="donVi_id" value="{{$user->donVi_id}}">
+                @endif
+
                 <div class="form-group">
                     <label>Số điện thoại:</label>
                     <input type="text" class="form-control" name="phone" value="{{$user->phone}}" />

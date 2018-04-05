@@ -12,7 +12,9 @@
  				</div>
 
  			</li> --}}
-
+ 			<li>
+ 				<a href="{{route('detail',Auth::id())}}" class="text-center">{{Auth::user()->profile->fullname}}</a>
+ 			</li>
  			<li>
  				<a href="{{url('/')}}"><i class="fa fa-dashboard fa-fw"></i>Trang chủ</a>
  			</li>
@@ -56,7 +58,7 @@
  				<a href="#" ><i class="fa fa-exchange fa-fw"></i> Xử lý công việc<span class="fa arrow"></span></a>
  				<ul class="nav nav-second-level">
  					@if((Auth::user()->profile->role->nameRole=='lever_3') or
- 						(Auth::user()->profile->role->nameRole=='lever_2'))
+ 					(Auth::user()->profile->role->nameRole=='lever_2'))
  					<li>
  						<a href="{{route('newWork')}}">Tạo mới công việc</a>
  					</li>
@@ -74,13 +76,13 @@
  				<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản tỉnh<span class="fa arrow"></span></a>
  				<ul class="nav nav-second-level">
  					<li>
- 						<a href="{{url('cong-van-can-duyet-cap-tinh')}}">Văn bản chờ duyệt</a>
+ 						<a href="{{url('van-ban-den')}}">Văn bản đến</a>
  					</li>
  					<li>
- 						<a href="{{url('cong-van-cap-tinh')}}">Văn bản tỉnh </a>
+ 						<a href="{{url('cong-van-cap-tinh')}}">Văn bản đi </a>
  					</li>
  					<li>
- 						<a href="{{url('cong-van-cap-tinh-da-duyet')}}">Văn bản đã xử lý</a>
+ 						<a href="{{url('danh-sach-xu-ly-van-ban')}}">Xử lý văn bản</a>
  					</li>
  				</ul>
  				<!-- /.nav-second-level -->
@@ -89,49 +91,52 @@
  				<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản đơn vị<span class="fa arrow"></span></a>
  				<ul class="nav nav-second-level">
  					<li>
- 						<a href="{{url('cong-van-can-duyet-cap-donvi',Auth::user()->profile->donVi_id)}}">Văn bản chờ duyệt</a>
+ 						<a href="{{url('cong-van-can-duyet-cap-donvi',Auth::user()->profile->donVi_id)}}">Văn bản đến</a>
  					</li>
  					<li>
- 						<a href="{{url('cong-van-cap-don-vi')}}">Văn bản đơn vị</a>
- 					</li>
- 					<li>
- 						<a href="{{url('cong-van-cap-don-vi-da-duyet')}}">Văn bản đã xử lý </a>
- 					</li>
- 				</ul>
- 				<!-- /.nav-second-level -->
- 			</li>
- 			<li>
- 				<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản cá nhân<span class="fa arrow"></span></a>
- 				<ul class="nav nav-second-level">
- 					<li>
- 						<a href="{{url('xu-ly-cong-van',1)}}">Gửi văn bản đến tỉnh</a>
- 					</li>
- 					<li>
- 						<a href="{{url('xu-ly-cong-van',2)}}">Gửi văn bản đến đơn vị</a>
- 					</li>
- 					<li>
- 						<a href="{{url('cong-van-da-gui',Auth::id())}}">Văn bản đã gửi</a>
- 					</li>
- 					
- 				</ul>
- 				<!-- /.nav-second-level -->
- 			</li>
- 			<li>
- 				<a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
- 				<ul class="nav nav-second-level">
- 					<li>
- 						<a href="{{route('detail',Auth::id())}}">Xem thông tin</a>
- 					</li>
- 					<li>
- 						<a href="{{route('updateProfile',Auth::id())}}">Cập nhật thông tin</a>
- 					</li>
- 				</ul>
- 				<!-- /.nav-second-level -->
- 			</li>
- 			<li>
- 				<a href="{{url('so-do-to-chuc')}}"><i class="fa fa-sitemap fa-fw"></i> Sơ đồ tổ chức</a>
- 			</li>
- 		</ul>
+ 						<a href="{{url('cong-van-cap-don-vi')}}">Văn bản đi</a>
+ 						</li>
+ 						<li>
+ 							<a href="{{url('cong-van-cap-don-vi-da-duyet')}}">Xử lý văn bản</a>
+ 						</li>
+ 					</ul>
+ 					<!-- /.nav-second-level -->
+ 				</li>
+ 				<li>
+ 					<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản cá nhân<span class="fa arrow"></span></a>
+ 					<ul class="nav nav-second-level">
+ 						<li>
+ 							<a href="{{url('xu-ly-cong-van',1)}}">Gửi văn bản đến tỉnh</a>
+ 						</li>
+ 						<li>
+ 							<a href="{{url('xu-ly-cong-van',2)}}">Gửi văn bản đến đơn vị</a>
+ 						</li>
+ 						<li>
+ 							<a href="{{url('cong-van-da-gui',Auth::id())}}">Văn bản đã gửi</a>
+ 						</li>
+
+ 					</ul>
+ 					<!-- /.nav-second-level -->
+ 				</li>
+ 				<li>
+ 					<a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
+ 					<ul class="nav nav-second-level">
+ 						<li>
+ 							<a href="{{route('detail',Auth::id())}}">Xem thông tin</a>
+ 						</li>
+ 						<li>
+ 							<a href="{{route('updateProfile',Auth::id())}}">Cập nhật thông tin</a>
+ 						</li>
+ 					</ul>
+ 					<!-- /.nav-second-level -->
+ 				</li>
+ 				<li>
+ 					<a href="{{url('so-do-to-chuc')}}"><i class="fa fa-sitemap fa-fw"></i> Sơ đồ tổ chức</a>
+ 				</li>
+ 				<li>
+ 					<a href="{{route('logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+ 				</li>
+ 			</ul>
+ 		</div>
+ 		<!-- /.sidebar-collapse -->
  	</div>
- 	<!-- /.sidebar-collapse -->
- </div>
