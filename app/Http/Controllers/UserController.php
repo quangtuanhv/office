@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\ChucVu;
 use App\DonVi;
-
+use App\SendDocument;
 use App\Profile;
 use App\Role;
 use App\User;
+use App\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,14 +30,15 @@ class UserController extends Controller {
 	public function postLogin(Request $request) {
 
 		$data = [
-		'name'     => $request->name,
-		'password' => $request->password,
+			'name'     => $request->name,
+			'password' => $request->password,
 		];
 		if (Auth::attempt($data)) {
 			$user = Profile::where('user_id', Auth::id())->first();
 			if (is_null($user)) {
 				return redirect()->route('updateProfile', ['id' => Auth::id()]);
 			} else {
+				
 				return redirect('/');
 			}
 		} else {
@@ -50,16 +52,16 @@ class UserController extends Controller {
 	}
 	public function getUpdate($id) {
 		
-			$chucVu = ChucVu::all();
-			$donVi  = DonVi::all();
-			$role   = Role::all();
-			$user   = Profile::where('user_id', $id)->first();
-			if ($user == null) {
-				$acc = User::where('id', $id)->first();
-				return view('user.newProfile', ['chucVu' => $chucVu, 'donVi' => $donVi, 'role' => $role, 'acc' => $acc]);
-			}
-			return view('user.updateProfile', ['chucVu' => $chucVu, 'donVi' => $donVi, 'role' => $role, 'user' => $user]);
+		$chucVu = ChucVu::all();
+		$donVi  = DonVi::all();
+		$role   = Role::all();
+		$user   = Profile::where('user_id', $id)->first();
+		if ($user == null) {
+			$acc = User::where('id', $id)->first();
+			return view('user.newProfile', ['chucVu' => $chucVu, 'donVi' => $donVi, 'role' => $role, 'acc' => $acc]);
 		}
+		return view('user.updateProfile', ['chucVu' => $chucVu, 'donVi' => $donVi, 'role' => $role, 'user' => $user]);
+	}
 	
 	public function postUpdate(Request $req, $id) {
 		$user = Profile::where('id', $id)->first();
@@ -82,17 +84,17 @@ class UserController extends Controller {
 	}
 	public function getShowUser() {
 		
-			$user = Profile::with('chucVu', 'donVi')->get();
-			$us   = Profile::with('chucVu', 'donVi')->get();
-			return view('contact.showContact', compact('user', 'us'));
-		}
+		$user = Profile::with('chucVu', 'donVi')->get();
+		$us   = Profile::with('chucVu', 'donVi')->get();
+		return view('contact.showContact', compact('user', 'us'));
+	}
 	
 	public function getShow($id) {
 		
-			$user = Profile::where('user_id', $id)->first();
+		$user = Profile::where('user_id', $id)->first();
 
-			return view('user.detail', compact('user'));
-	
+		return view('user.detail', compact('user'));
+
 	}
 	public function ajaxLogin(Request $req) {
 		$name = $_GET["name"];
@@ -101,5 +103,16 @@ class UserController extends Controller {
 			echo "Tên đăng nhập không tồn tại !";
 		}
 	}
-
+	public function xulydangnhap(){
+		if (Auth::check()) {
+			$NotyfiDoc = SendDocument::where([['trang_thai',1],['nguoinhan',Auth::id()]])->get();
+				$tb = count($NotyfiDoc);
+			$checkVb = Document::where([['trang_thai',1],['lanh_dao_xu_ly',Auth::id()]])->get();
+			$tbxlcv = count($checkVb);
+			return view('master.home',compact('tb','tbxlcv'));
+		} else {
+			return view('user.login');
+		}
+	
+	}
 }

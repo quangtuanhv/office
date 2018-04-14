@@ -40,14 +40,16 @@
 							<div class='col-md-6'>
 								<button id="btnsend" style="float: right;">Chuyển tiếp</button>
 							</div>
-							@endif
+							@else
 							@foreach($nv as $nv)
-							@if(Auth::id()==$nv->nguoinhan)
+							@if((Auth::id()==$nv->nguoinhan)or(Auth::id()==$doc->lanh_dao_xu_ly))
 							<div class='col-md-6'>
 								<button id="btnsend" style="float: right;">Chuyển tiếp</button>
 							</div>
+							@break
 							@endif
 							@endforeach
+							@endif
 						</div>
 						<div class="row chuyentiep" style="margin: 7px">
 							<form action="{{route('chuyen-tiep',$doc->id)}}" method="POST">

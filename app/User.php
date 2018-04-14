@@ -43,4 +43,7 @@ class User extends Authenticatable {
 	public function sendDocument(){
 		return $this->hasMany('App\SendDocument','nguoinhan','id');
 	}
+	public function replyDocuments(){
+		return $this->hasMany('App\Reply_Documents','user_id','id');
+	}
 }

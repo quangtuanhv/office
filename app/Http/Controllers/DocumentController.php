@@ -7,6 +7,7 @@ use App\DonVi;
 use App\Document;
 use App\Profile;
 use App\SendDocument;
+use App\Reply_Documents;
 use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
@@ -95,7 +96,7 @@ class DocumentController extends Controller
 	// }
 
 	public function vanbanden_captinh(){
-		$doc = Document::all();
+		$doc = Document::orderBy('id', 'desc')->get();
 		return view('documents.vanbanden.listvanbanden',compact('doc'));
 	}
 
@@ -126,7 +127,7 @@ class DocumentController extends Controller
 	public function getCongVanDen($id){
 		$doc = Document::where('id',$id)->first();
 		$ten = Profile::all();
-		$nv  = SendDocument::where('id_congvan',$id)->get();
+		$nv  = SendDocument::where('id_congvan',$id)->orderBy('id', 'desc')->get();
 		return view('documents.vanbanden.chitietvanbanden',compact('doc','ten','nv'));
 	}
 
@@ -140,6 +141,9 @@ class DocumentController extends Controller
 		$doc->id_congvan    = $id;
 		$doc->trang_thai     = 1;
 		$doc->save();
+		$oldDoc = SendDocument::where([['id_congvan',$id],['nguoinhan',Auth::id()]])->first();
+		$oldDoc->trang_thai = 2;
+		$oldDoc->save();
 		$cv = Document::where('id',$id)->first();
 		$cv->trang_thai = 2;
 		$cv->save();
@@ -148,15 +152,33 @@ class DocumentController extends Controller
 	public function getXuLyVanBan($id){
 		$doc = SendDocument::where('id_congvan',$id)->get();
 		$check = SendDocument::where('id_congvan',$id)->first();
-		$nv  = SendDocument::where('id_congvan',$id)->get();
-		return view('documents.vanbanden.xulyvanban',compact('doc','check','nv'));
+		$nv = SendDocument::where('id_congvan',$id)->get();
+//
+		$rep = Reply_Documents::where('id_van_ban',$id)->orderBy('id','desc')->get();
+		return view('documents.vanbanden.xulyvanban',compact('doc','check','nv','rep'));
 	}
 	public function getReply($id){
 		$doc = Document::where('id',$id)->first();
 		return view('documents.vanbanden.taovanbantraloi',compact('doc'));
 	}
 	public function getlistxuly(){
-		$doc = Document::where('trang_thai',2)->get();
+		$doc = Document::where('trang_thai',2)->orderBy('id', 'desc')->get();
 		return view('documents.xulyvanban.listxulivanban',compact('doc'));
 	}
+
+	public function postReplyDocument(Request $req,$id){
+		$rep = new Reply_Documents;
+		$rep->tencongvan = $req->trich_yeu;
+		$rep->so_ky_hieu = $req->so_van_ban;
+		$rep->file       = $req->filedinhkem;
+		$rep->id_van_ban = $id;
+		$rep->user_id    = Auth::id();
+		$rep->ghichu     = $req->ghichu;
+		$rep->save();
+		$oldDoc = SendDocument::where([['id_congvan',$id],['nguoinhan',Auth::id()]])->first();
+		$oldDoc->trang_thai = 2;
+		$oldDoc->save();
+		return redirect()->route('xu-ly-van-ban',['id'=>$id]);
+	}
+	
 }

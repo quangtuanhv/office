@@ -6,7 +6,9 @@
 			<div class="col-lg-10">
 				<h1 class="page-header">
 					<small>Văn bản đến </small>
-					<small style="float: right;"><a href="{{url('tao-van-ban')}}" class="btn btn-default">Tạo công văn</a></small>
+					@if(Auth::user()->profile->donVi_id==2)
+					<small style="float: right;"><a href="{{url('tao-van-ban')}}" class="btn btn-default">Nhập công văn</a></small>
+					@endif
 				</h1>
 				
 			</div>

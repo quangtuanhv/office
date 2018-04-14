@@ -1,13 +1,6 @@
 <?php
 
-Route::get('/', function () {
-
-		if (Auth::check()) {
-			return view('master.home');
-		} else {
-			return view('user.login');
-		}
-	});
+Route::get('/','UserController@xulydangnhap');
 Route::get('login',function(){
 	return view('user.login');
 });
@@ -90,4 +83,5 @@ Route::post('chuyen-cong-van-den/{id}','DocumentController@postChuyenCongVan')->
 Route::get('xu-ly-van-ban/{id?}','DocumentController@getXuLyVanBan')->name('xu-ly-van-ban');
 Route::get('tao-van-ban-tra-loi/{id?}','DocumentController@getReply');
 Route::get('danh-sach-xu-ly-van-ban', 'DocumentController@getlistxuly');
+Route::post('tra-loi-cong-van/{id?}','DocumentController@postReplyDocument');
 });

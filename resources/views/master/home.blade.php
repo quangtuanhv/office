@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <h1 class="page-header" style="color: red;"> <marquee behavior="alternate" direction="right" scrollamount="6">Website Hội nông dân tỉnh Quảng Nam</marquee></h1> 
+                <h1 class="page-header" style="color: red;"> <marquee  direction="left" scrollamount="3">Website Hội nông dân tỉnh Quảng Nam</marquee></h1> 
                 <fieldset>
                     <div style="color: red;" class="form-group">
                         @if(session('done'))
@@ -14,8 +14,12 @@
                         @endif
                     </div>
                 </fieldset>
-
-
+            @if($tb!=0)
+            <a style="color: red" href="{{url('danh-sach-xu-ly-van-ban')}}">{{$tb}} Văn bản đang chờ xử lý</a>
+            @endif
+            @if($tbxlcv!=0)
+            <a style="color: red" href="{{url('van-ban-den')}}">{{$tbxlcv}} Văn bản đến chờ xử lý</a>
+            @endif
             </div>
             <!-- /.col-lg-12 -->
             <div class="col-lg-4  home">
@@ -60,9 +64,9 @@
    </a>
 </div>
 <div class="col-lg-4  home">
-    <a href="">
+    <a href="{{url('van-ban-den')}}">
         <div class="super_menu">
-            Văn bản <br>
+            Văn bản đến <br>
             <i class="fa fa-file-text fa-fw" style="color: red;"></i>
         </div>
     </a>
