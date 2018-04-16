@@ -75,13 +75,20 @@ Route::get('khong-du-quyen',function(){
 	return view('errors.notHaveRole');
 });
 //van ban
-Route::get('van-ban-den', 'DocumentController@vanbanden_captinh');
+Route::get('van-ban-den', 'DocumentController@getvanbanden');
 Route::get('tao-van-ban','DocumentController@taovanban');
 Route::post('luu-van-ban/{id?}','DocumentController@luuvanban')->name('luuvanban');
-Route::get('chi-tiet-cong-van-den/{id?}','DocumentController@getCongVanDen');
-Route::post('chuyen-cong-van-den/{id}','DocumentController@postChuyenCongVan')->name('chuyen-tiep');
-Route::get('xu-ly-van-ban/{id?}','DocumentController@getXuLyVanBan')->name('xu-ly-van-ban');
+Route::post('chuyen-van-ban/{id?}','DocumentController@chuyenvanban')->name('chuyenvanban');
+Route::get('chi-tiet-cong-van-den/{id?}','DocumentController@getchitietvanban')->name('chi-tiet-cong-van-den');
+Route::post('xu-ly-van-ban/{id?}','DocumentController@postXuLyVanBan');
+Route::get('so-van-ban','DocumentController@getsovanban');
+Route::get('danh-sach-van-ban/{id?}','DocumentController@getdanhsachvanban');
+Route::post('tao-so-van-ban/{id?}','DocumentController@posttaosovanban');
+Route::get('tao-so-van-ban','DocumentController@gettaosovanban');
+Route::get('danh-sach-xu-ly-van-ban', 'DocumentController@getdsxuly');
+//vanbandi
+Route::get('tao-van-ban-di','DocumentController@gettaovanbandi');
+
 Route::get('tao-van-ban-tra-loi/{id?}','DocumentController@getReply');
-Route::get('danh-sach-xu-ly-van-ban', 'DocumentController@getlistxuly');
 Route::post('tra-loi-cong-van/{id?}','DocumentController@postReplyDocument');
 });

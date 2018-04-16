@@ -105,11 +105,8 @@ class UserController extends Controller {
 	}
 	public function xulydangnhap(){
 		if (Auth::check()) {
-			$NotyfiDoc = SendDocument::where([['trang_thai',1],['nguoinhan',Auth::id()]])->get();
-				$tb = count($NotyfiDoc);
-			$checkVb = Document::where([['trang_thai',1],['lanh_dao_xu_ly',Auth::id()]])->get();
-			$tbxlcv = count($checkVb);
-			return view('master.home',compact('tb','tbxlcv'));
+			
+			return view('master.home');
 		} else {
 			return view('user.login');
 		}

@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
 	protected $table = "documents";
-	public function donVi()
+	public function loaivanban()
 	{
-		return $this->belongsTo('App\DonVi','co_quan_ban_hanh','id');
+		return $this->belongsTo('App\LoaiVanBan','id_loaivanban','id');
 	}
 	public function user(){
 		return $this->belongsTo('App\User','user_id','id');

@@ -37,13 +37,7 @@ class User extends Authenticatable {
 	public function messenger() {
 		return $this->hasMany('App\Messenger', 'user_1', 'id');
 	}
-	public function document() {
-		return $this->hasMany('App\Document', 'user_id', 'id');
-	}
-	public function sendDocument(){
-		return $this->hasMany('App\SendDocument','nguoinhan','id');
-	}
-	public function replyDocuments(){
-		return $this->hasMany('App\Reply_Documents','user_id','id');
+	public function cxlvb(){
+		return $this->hasMany('App\ChuyenXuLyVanBan','id_nguoitao','id');
 	}
 }

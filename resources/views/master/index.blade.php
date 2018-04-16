@@ -59,19 +59,26 @@
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('/admin/dist/js/sb-admin-2.js')}}"></script>
 
-    <!-- DataTables JavaScript -->
+    DataTables JavaScript
     <script src="{{asset('admin/bower_components/datatables/media/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="/ckfinder/ckfinder.js"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script> CKEDITOR.replace('editor1',{
-        filebrowserBrowseUrl: '{{ asset('ckfinder/ckfinder.html') }}',
-        filebrowserImageBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Images') }}',
-        filebrowserFlashBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Flash') }}',
-        filebrowserUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
-        filebrowserImageUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
-        filebrowserFlashUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
-    } ); </script>
+   {{-- <script> CKEDITOR.replace('editor1',{
+       filebrowserBrowseUrl: '{{ asset('ckfinder/ckfinder.html') }}',
+       filebrowserImageBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Images') }}',
+       filebrowserFlashBrowseUrl: '{{ asset('ckfinder/ckfinder.html?type=Flash') }}',
+       filebrowserUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+       filebrowserImageUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+       filebrowserFlashUploadUrl: '{{ asset('ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+   } ); </script> --}}
+    <script type="text/javascript">
+        CKEDITOR.replace( 'editor1' ,{
+    filebrowserBrowseUrl : '{{asset('filemanager/dialog.php?type=2&editor=ckeditor&fldr=')}}',
+    filebrowserUploadUrl : '{{asset('filemanager/dialog.php?type=2&editor=ckeditor&fldr=')}}',
+    filebrowserImageBrowseUrl : '{{asset('filemanager/dialog.php?type=1&editor=ckeditor&fldr=')}}'
+});
+    </script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
         $(document).ready(function() {

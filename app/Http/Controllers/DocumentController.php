@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\DonVi;	
 use App\Document;
 use App\Profile;
-use App\SendDocument;
-use App\Reply_Documents;
+use App\SoVanBan;
+use App\LoaiVanBan;
+use App\ChuyenXuLyVanBan;
+use App\XuLyVanBan;
 use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
@@ -95,90 +97,132 @@ class DocumentController extends Controller
 	// 	return view('terms-provincial.listDaDuyetCongKhai',compact('congvan'));
 	// }
 
-	public function vanbanden_captinh(){
+	/*public function vanbanden_captinh(){
 		$doc = Document::orderBy('id', 'desc')->get();
 		return view('documents.vanbanden.listvanbanden',compact('doc'));
 	}
-
+*/
 	public function taovanban() {
-		$dv = DonVi::all();
-		$ld = Profile::where('role_id',2)->orwhere('role_id',3)->get();
-		return view('documents.vanbanden.nhapvanban',compact('dv','ld'));
+		$tl  = LoaiVanBan::all();
+		$svb = SoVanBan::all(); 
+		return view('documents.vanbanden.nhapvanban',compact('tl','svb'));
 	}
 
 	public function luuvanban(Request $req, $id){
-		$doc = new Document;
-		$doc->trich_yeu = $req->trich_yeu;
-		$doc->loai = $req->loai;
-		$doc->do_khan = $req->do_khan;
-		$doc->linh_vuc = $req->linh_vuc;
-		$doc->y_kien = $id;
-		$doc->file = $req->file;
-		$doc->lanh_dao_xu_ly = $req->lanh_dao_xu_ly;
-		$doc->ngay_het_han = $req->ngay_het_han;
-		$doc->so_van_ban = $req->so_van_ban;
-		$doc->trang_thai = 1;
-		$doc->ghi_chu = $req->ghi_chu;
-		$doc->co_quan_ban_hanh = $req->co_quan_ban_hanh;
+		$doc                 = new Document;
+		$doc->trichyeu		 = $req->trichyeu;
+		$doc->kihieu		 = $req->so;
+		$doc->id_loaivanban	 = $req->loai;
+		$doc->ngaybanhanh	 = $req->ngaybanhanh;
+		$doc->id_sovanban	 = $req->sovanban;
+		$doc->ngayden 	     = $req->ngayden;
+		$doc->coquanbanhanh  = $req->coquanbanhanh;
+		$doc->nguoiky 		 = $req->nguoiky;
+		$doc->chucvu		 = $req->chucvu;
+		$doc->tepdinhkem	 = $req->tepdinhkem;
+		$doc->ghichu		 = $req->ghichu;
+		$doc->id_nguoisoan   = Auth::id();
+		$doc->status 		 = 1;
 		$doc->save();
 		return redirect("/")->with('done','Đã gửi xong công văn, vui lòng chờ ký duyệt');
 	}
 
-	public function getCongVanDen($id){
-		$doc = Document::where('id',$id)->first();
-		$ten = Profile::all();
-		$nv  = SendDocument::where('id_congvan',$id)->orderBy('id', 'desc')->get();
-		return view('documents.vanbanden.chitietvanbanden',compact('doc','ten','nv'));
+	public function getvanbanden(){
+		$doc = Document::where('status',1)->orderBy('id', 'desc')->get();
+		return view('documents.vanbanden.listvanbanden',compact('doc'));
+	}
+	public function getchitietvanban($id){
+		$doc  	= Document::where('id',$id)->first();
+		$user 	= Profile::all();
+		$cxlvb  = ChuyenXuLyVanBan::where('id_vanban',$id)->orderBy('id', 'desc')->get();
+		$xlvb 	= XuLyVanBan::where('id_vanban',$id)->orderBy('id', 'desc')->get();
+		return view('documents.vanbanden.chitietvanbanden',compact('doc','user','cxlvb','xlvb'));
+	}
+	public function chuyenvanban(Request $request,$id){
+		$value     = $request->nguoinhan;
+		if(is_numeric($value)){
+			$xuly  = new ChuyenXuLyVanBan;
+			$xuly->ykienxuly    = $request->ykienxuly;
+			$xuly->tepdinhkem   = $request->tepdinhkem;
+			$xuly->id_nguoinhan = $request->nguoinhan;
+			$xuly->id_vanban 	= $id;
+			$xuly->status 		= 0;
+			$xuly->id_nguoitao	= Auth::id();
+			$xuly->save();
+			$doc = ChuyenXuLyVanBan::where([['id_nguoinhan',Auth::id()],['id_vanban',$id]])->first();
+			if (!is_null($doc)) {
+				$doc->status = 1;
+				$doc->save();
+			}
+		}
+		else{
+			for ($i=12; $i <30 ; $i++) { 
+			$tendonvi  = DonVi::where('id',$i)->value('tenDonVi');
+			$nguoidung = Profile::where('fullname',$tendonvi)->value('id');
+			$xuly  = new ChuyenXuLyVanBan;
+			$xuly->ykienxuly    = $request->ykienxuly;
+			$xuly->tepdinhkem   = $request->tepdinhkem;
+			$xuly->id_nguoinhan = $nguoidung;
+			$xuly->id_vanban 	= $id;
+			$xuly->id_nguoitao	= Auth::id();
+			$xuly->status 		= 0;
+			$xuly->save();
+			}
+			$doc = ChuyenXuLyVanBan::where([['id_nguoinhan',Auth::id()],['id_vanban',$id]])->first();
+			if (!is_null($doc)) {
+				$doc->status = 1;
+				$doc->save();
+			}
+		}
+		return redirect()->route("chi-tiet-cong-van-den",['id'=>$id]);
+	}
+	public function postXuLyVanBan(Request $req,$id){
+		$xuly = new XuLyVanBan;
+		$xuly->quatrinhxuly		= $req->ykienxuly;
+		$xuly->dinhkemtaptin	= $req->tepdinhkem;
+		$xuly->nguoixuly		= Auth::id();
+		$xuly->id_vanban 		= $id;
+		$xuly->save();
+		$doc = ChuyenXuLyVanBan::where([['id_nguoinhan',Auth::id()],['id_vanban',$id]])->first();
+			if (!is_null($doc)) {
+				$doc->status = 1;
+				$doc->save();
+			}
+		return redirect()->route("chi-tiet-cong-van-den",['id'=>$id]);
 	}
 
-	public function postChuyenCongVan(Request $req,$id){
-		$doc = New SendDocument;
-		$doc->nguoichuyen   = Auth::id();
-		$doc->noidungchuyen = $req->noidungchuyen;
-		$doc->nguoinhan     = $req->nguoi_nhan;
-		$doc->ghichu        = $req->ghichu;
-		$doc->filedinhkem   = $req->taptin;
-		$doc->id_congvan    = $id;
-		$doc->trang_thai     = 1;
-		$doc->save();
-		$oldDoc = SendDocument::where([['id_congvan',$id],['nguoinhan',Auth::id()]])->first();
-		$oldDoc->trang_thai = 2;
-		$oldDoc->save();
-		$cv = Document::where('id',$id)->first();
-		$cv->trang_thai = 2;
-		$cv->save();
-		return redirect()->route('xu-ly-van-ban', ['id' => $id]);
-	}
-	public function getXuLyVanBan($id){
-		$doc = SendDocument::where('id_congvan',$id)->get();
-		$check = SendDocument::where('id_congvan',$id)->first();
-		$nv = SendDocument::where('id_congvan',$id)->get();
-//
-		$rep = Reply_Documents::where('id_van_ban',$id)->orderBy('id','desc')->get();
-		return view('documents.vanbanden.xulyvanban',compact('doc','check','nv','rep'));
-	}
-	public function getReply($id){
-		$doc = Document::where('id',$id)->first();
-		return view('documents.vanbanden.taovanbantraloi',compact('doc'));
-	}
-	public function getlistxuly(){
-		$doc = Document::where('trang_thai',2)->orderBy('id', 'desc')->get();
-		return view('documents.xulyvanban.listxulivanban',compact('doc'));
+	public function getsovanban(){
+		$svb  =  SoVanBan::all();
+		return view('documents.sovanban.danhsachsovanban',compact('svb'));
 	}
 
-	public function postReplyDocument(Request $req,$id){
-		$rep = new Reply_Documents;
-		$rep->tencongvan = $req->trich_yeu;
-		$rep->so_ky_hieu = $req->so_van_ban;
-		$rep->file       = $req->filedinhkem;
-		$rep->id_van_ban = $id;
-		$rep->user_id    = Auth::id();
-		$rep->ghichu     = $req->ghichu;
-		$rep->save();
-		$oldDoc = SendDocument::where([['id_congvan',$id],['nguoinhan',Auth::id()]])->first();
-		$oldDoc->trang_thai = 2;
-		$oldDoc->save();
-		return redirect()->route('xu-ly-van-ban',['id'=>$id]);
+	public function getdanhsachvanban($id){
+		$doc  = Document::where('id_sovanban',$id)->orderBy('id', 'desc')->get();
+		return view('documents.vanbanden.listvanbanden',compact('doc'));
 	}
-	
+	public function gettaosovanban(){
+		return view('documents.sovanban.new');
+	}
+	public function posttaosovanban(Request $re){
+		$svb = new SoVanBan;
+		$svb->tensovanban	= $re->tensvb;
+		$svb->tenviettat	= $re->tenviettat;
+		$svb->loaivanban 	= $re->loaivanban;
+		$svb->namluutru		= $re->namluutru;
+		$svb->save();
+		return redirect("so-van-ban");
+	}
+
+	public function getdsxuly(){
+		$search  = ChuyenXuLyVanBan::where([['id_nguoinhan',Auth::id()],['status',0]])->orderBy('id', 'desc')->get();
+		return view('documents.vanbanden.xulyvanban',compact('search'));
+	}
+
+	public function gettaovanbandi(){
+		$tl  = LoaiVanBan::all();
+		$svb = SoVanBan::all(); 
+		$dv  = DonVi::all();
+		$nk  = Profile::where('donVi_id',1)->get();
+		return view('documents.vanbandi.nhapvanban',compact('tl','svb','dv','nk'));
+	}
 }

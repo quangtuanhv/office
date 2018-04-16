@@ -14,13 +14,7 @@
                         @endif
                     </div>
                 </fieldset>
-            @if($tb!=0)
-            <a style="color: red" href="{{url('danh-sach-xu-ly-van-ban')}}">{{$tb}} Văn bản đang chờ xử lý</a>
-            @endif
-            @if($tbxlcv!=0)
-            <a style="color: red" href="{{url('van-ban-den')}}">{{$tbxlcv}} Văn bản đến chờ xử lý</a>
-            @endif
-            </div>
+           
             <!-- /.col-lg-12 -->
             <div class="col-lg-4  home">
                 <a href="{{url('showUser')}}">

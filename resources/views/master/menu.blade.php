@@ -73,7 +73,7 @@
  				<!-- /.nav-second-level -->
  			</li>
  			<li>
- 				<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản tỉnh<span class="fa arrow"></span></a>
+ 				<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản <span class="fa arrow"></span></a>
  				<ul class="nav nav-second-level">
  					<li>
  						<a href="{{url('van-ban-den')}}">Văn bản đến</a>
@@ -84,40 +84,13 @@
  					<li>
  						<a href="{{url('danh-sach-xu-ly-van-ban')}}">Xử lý văn bản</a>
  					</li>
+ 					<li>
+ 						<a href="{{url('so-van-ban')}}">Sổ văn bản</a>
+ 					</li>
  				</ul>
  				<!-- /.nav-second-level -->
  			</li>
- 			<li>
- 				<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản đơn vị<span class="fa arrow"></span></a>
- 				<ul class="nav nav-second-level">
- 					<li>
- 						<a href="{{url('cong-van-can-duyet-cap-donvi',Auth::user()->profile->donVi_id)}}">Văn bản đến</a>
- 					</li>
- 					<li>
- 						<a href="{{url('cong-van-cap-don-vi')}}">Văn bản đi</a>
- 						</li>
- 						<li>
- 							<a href="{{url('cong-van-cap-don-vi-da-duyet')}}">Xử lý văn bản</a>
- 						</li>
- 					</ul>
- 					<!-- /.nav-second-level -->
- 				</li>
- 				<li>
- 					<a href="#"><i class="fa fa-file-word-o fa-fw"></i> Văn bản cá nhân<span class="fa arrow"></span></a>
- 					<ul class="nav nav-second-level">
- 						<li>
- 							<a href="{{url('xu-ly-cong-van',1)}}">Gửi văn bản đến tỉnh</a>
- 						</li>
- 						<li>
- 							<a href="{{url('xu-ly-cong-van',2)}}">Gửi văn bản đến đơn vị</a>
- 						</li>
- 						<li>
- 							<a href="{{url('cong-van-da-gui',Auth::id())}}">Văn bản đã gửi</a>
- 						</li>
-
- 					</ul>
- 					<!-- /.nav-second-level -->
- 				</li>
+ 			
  				<li>
  					<a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
  					<ul class="nav nav-second-level">

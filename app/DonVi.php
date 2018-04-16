@@ -9,7 +9,7 @@ class DonVi extends Model {
 	public function profile() {
 		return $this->belongsTo('App\Profile', 'donVi_id', 'id');
 	}
-	public function document(){
-		return $this->hasMany('App\Document', 'advisory','id');
-	}
+	/*public function xulyvanban(){
+		return $this->hasMany('App\ChuyenXuLyVanBan','id_donvi','id');
+	}*/
 }

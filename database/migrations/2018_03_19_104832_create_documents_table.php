@@ -15,18 +15,19 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('trich_yeu');
-            $table->string('loai');
-            $table->integer('do_khan');
-            $table->string('linh_vuc');
-            $table->text('y_kien')->nullable();
-            $table->string('file');
-            $table->integer('lanh_dao_xu_ly');
-            $table->string('so_van_ban');
-            $table->integer('trang_thai');
-            $table->date('ngay_het_han');
-            $table->integer('co_quan_ban_hanh');
-            $table->text('ghi_chu')->nullable();
+            $table->text('trichyeu');
+            $table->string('kihieu');
+            $table->integer('id_loaivanban');
+            $table->date('ngaybanhanh');
+            $table->integer('id_sovanban');
+            $table->date('ngayden');
+            $table->string('coquanbanhanh');
+            $table->string('nguoiky');
+            $table->string('chucvu')->nullable();
+            $table->string('tepdinhkem');
+            $table->string('ghichu')->nullable();
+            $table->integer('id_nguoisoan');
+            $table->integer('status');
             $table->timestamps();
         });
     }

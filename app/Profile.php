@@ -31,10 +31,11 @@ class Profile extends Model {
 	public function task(){
 		return $this->hasMany('App\Task','profile_id','id');
 	}
-	public function document() {
-		return $this->hasMany('App\Document', 'accept', 'id');
+	
+	public function chuyenxulyvanban(){
+		return $this->hasMany('App\ChuyenXuLyVanBan','id_nguoinhan','id');
 	}
-	public function sendDocument(){
-		return $this->hasMany('App\SendDocument','nguoichuyen','id');
+	public function xulyvanban(){
+		return $this->hasMany('App\XuLyVanBan','nguoixuly','id');
 	}
 }
