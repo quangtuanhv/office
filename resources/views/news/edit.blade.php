@@ -1,40 +1,38 @@
 @extends('master.index')
 @section('content')
-<div id="page-wrapper">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-9 col-md-offset-0 toppad" >
+<div class="container">
+	<div class="row">
+		<div class="col-md-9 col-md-offset-0 toppad" >
 
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h1 class="panel-title">
-							Sửa tin nội bộ
-						</h1>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div id="data">
-								<form action="{{url('edit-news',$post->id)}}" method="POST">
-									<input type="hidden" name="_token" value="{{ csrf_token() }}">
-									<div class="form-group">
-										<label>Tiêu đề:</label>
-										<input type="text" class="form-control" name="title" value="{{$post->title}}"
-										/>
-									</div>
-									<div class="form-group">
-										<label>Nội dung:</label>
-										<textarea name="content" class="form-control " id="editor1">{{$post->content}}</textarea>
-									</div>
-									<div class="form-group">
-										<label>Đính kèm tệp:</label>
-										<input id="ckfinder-input-1" name="file" type="text" class="form-control" value="{{$post->file}}" >
-										<br>
-										<input type="button" value="Chọn tệp đính kèm" id="ckfinder-popup-1" class="button-a button-a-background">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h1 class="panel-title">
+						Sửa tin nội bộ
+					</h1>
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div id="data">
+							<form action="{{url('edit-news',$post->id)}}" method="POST">
+								<input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<div class="form-group">
+									<label>Tiêu đề:</label>
+									<input type="text" class="form-control" name="title" value="{{$post->title}}"
+									/>
+								</div>
+								<div class="form-group">
+									<label>Nội dung:</label>
+									<textarea name="content" class="form-control " id="editor1">{{$post->content}}</textarea>
+								</div>
+								<div class="form-group">
+									<label>Đính kèm tệp:</label>
+									<input id="ckfinder-input-1" name="file" type="text" class="form-control" value="{{$post->file}}" >
+									<br>
+									<input type="button" value="Chọn tệp đính kèm" id="ckfinder-popup-1" class="button-a button-a-background">
 
-									</div>
-									<button type="submit" class="btn btn-default">Đăng bài</button>
-								</form>
-							</div>
+								</div>
+								<button type="submit" class="btn btn-default">Đăng bài</button>
+							</form>
 						</div>
 					</div>
 				</div>

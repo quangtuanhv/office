@@ -1,9 +1,8 @@
 @extends('master.index')
 @section('content')
-<div id="page-wrapper">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-9 col-md-offset-0 toppad" >
+			<div class="col-md-10 col-md-offset-1 toppad" >
 
 				<div class="panel panel-info">
 					<div class="panel-heading">
@@ -27,10 +26,10 @@
 									</div>
 									<div class="form-group">
 										<label>Đính kèm tệp:</label> <br>
-										<input id="ckfinder-input-1" name="file" type="text" class="form-control" >
-										<br>
-										<input type="button" value="Chọn tệp đính kèm" id="ckfinder-popup-1" class="button-a button-a-background">
-
+										<div class="input-append">
+											<input id="fieldID2" name="tepdinhkem" type="text" required="required">
+											<a href="{{asset('tinymce/filemanager/dialog.php?type=2&field_id=fieldID2&relative_url=1')}}" class="btn iframe-btn" type="button">Chọn tệp đính kèm</a>
+										</div>
 									</div>
 									<div class="form-group">
 
@@ -44,18 +43,18 @@
 										<input type="date" name="deadline" id="day_2" value="<?php echo date('Y-m-d');?>" onchange="CheckDay()">
 									</div>
 									<div class="form-group">
-	                    <center><strong> NƠI NHẬN VIỆC</strong> </center><br>
-											<label>Đơn vị:</label><br>
-	                    <select class="form-control" id="id_donvi" >
-												<option value="">Chọn đơn vị</option>
-	                        @foreach($dv as $dv)
-	                        <option value="{{$dv->id}}">{{$dv->tenDonVi}}</option>
-	                        @endforeach
-	                    </select><br>
-											<label>Tên:</label><br>
-											<select class="form-control" name = "user_id_receive" id="user_receive" >
-												<option value="">Chọn tên</option>
-											</select><br>
+										<center><strong> NƠI NHẬN VIỆC</strong> </center><br>
+										<label>Đơn vị:</label><br>
+										<select class="form-control" id="id_donvi" >
+											<option value="">Chọn đơn vị</option>
+											@foreach($dv as $dv)
+											<option value="{{$dv->id}}">{{$dv->tenDonVi}}</option>
+											@endforeach
+										</select><br>
+										<label>Tên:</label><br>
+										<select class="form-control" name = "user_id_receive" id="user_receive" >
+											<option value="">Chọn tên</option>
+										</select><br>
 
 									</div>
 									{{-- <div class="form-group">
@@ -80,53 +79,24 @@
 			</div>
 		</div>
 	</div>
-</div>
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#id_donvi").change(function(){
-	var id_donvi = $("#id_donvi").val();
-	var url = "{{asset('getPerson')}}";
-	$.ajax({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		},
-		url:url,
-		type:"get",
-		data: {'id_donvi':id_donvi},
-		async:true,
-		success:function(data){
-			$("#user_receive").html(data);
-		}
-	})
+	$(document).ready(function(){
+		$("#id_donvi").change(function(){
+			var id_donvi = $("#id_donvi").val();
+			var url = "{{asset('getPerson')}}";
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url:url,
+				type:"get",
+				data: {'id_donvi':id_donvi},
+				async:true,
+				success:function(data){
+					$("#user_receive").html(data);
+				}
+			})
+		});
 	});
-});
-</script>
-
-<script type="text/javascript">
-	var button1 = document.getElementById( 'ckfinder-popup-1' );
-
-	button1.onclick = function() {
-		selectFileWithCKFinder( 'ckfinder-input-1' );
-	};
-
-	function selectFileWithCKFinder( elementId ) {
-		CKFinder.modal( {
-			chooseFiles: true,
-			width: 800,
-			height: 600,
-			onInit: function( finder ) {
-				finder.on( 'files:choose', function( evt ) {
-					var file = evt.data.files.first();
-					var output = document.getElementById( elementId );
-					output.value = file.getUrl();
-				} );
-
-				finder.on( 'file:choose:resizedImage', function( evt ) {
-					var output = document.getElementById( elementId );
-					output.value = evt.data.resizedUrl;
-				} );
-			}
-		} );
-	}
 </script>
 @endsection

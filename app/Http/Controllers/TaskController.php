@@ -2,13 +2,37 @@
 namespace App\Http\Controllers;
 use App\Profile;
 use App\Task;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller {
 	
 	public function getLich($id) {
 		$user = Profile::all();
 		return view('tasks.newTask', compact('user','id'));
+	}
+	public function delTask($id){
+		$ch = Profile::where([['id',Auth::id()],['donVi_id','1']])->first();
+		$c = Profile::where([['id',Auth::id()],['donVi_id','2']])->first();
+		if (!is_null($ch) or !is_null($c)) {
+			$task = Task::where('id',$id)->delete();
+			return redirect("lich-cong-tac");
+		} else {
+			return redirect("khong-du-quyen");
+		}
+		
+		
+	}
+	public function saveTask(Request $req, $id){
+		$task = Task::where('id',$id)->first();
+		$task->content    = $req->content;
+		$task->gio        = $req->gio;
+		$task->ngay       = $req->ngay;
+		$task->profile_id = $req->nguoichutri;
+		$task->address    = $req->address;
+		$task->thanhphan  = $req->thanhphan;
+		$task->user_id    = Auth::id();
+		$task->save();
+		return redirect("lich-cong-tac");
 	}
 	public function postLich() {
 		$content          = $_GET["content"];
@@ -31,6 +55,21 @@ class TaskController extends Controller {
 		echo "Thêm lịch thành công";
 	}
 
+	public function editTask($id){
+		$ch = Profile::where([['id',Auth::id()],['donVi_id','1']])->first();
+		$c = Profile::where([['id',Auth::id()],['donVi_id','2']])->first();
+		if (!is_null($ch) or !is_null($c)) {
+			$task = Task::where('id',$id)->first();
+			$user = Profile::all();
+			return view('tasks.edit',compact('task','user'));
+		} else {
+			return redirect("khong-du-quyen");
+		}
+		
+
+
+
+	}
 	public function showLich($id){
 		$role = Profile::where('id',$id)->first();
 		$date = getdate();

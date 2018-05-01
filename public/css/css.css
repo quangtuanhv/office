@@ -177,3 +177,8 @@
 .post .post-footer .comments-list .comment > .comments-list {
   margin-left: 50px;
 }
+/*-----------*/
+.container-fluid{
+  margin-left: 20px;
+  margin-right: 20px;
+}

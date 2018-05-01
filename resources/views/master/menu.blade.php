@@ -1,17 +1,9 @@
- <div class="navbar-default sidebar" role="navigation" >
+{{--  <a href="#menu" id="toggle" id="slide-menu"><span></span></a>
+ --}} 
+ <div class="navbar-default sidebar" role="navigation" id="menu">
  	<div class="sidebar-nav navbar-collapse">
  		<ul class="nav" id="side-menu">
- 			{{-- <li class="sidebar-search">
- 				<div class="input-group custom-search-form">
- 					<input type="text" class="form-control" placeholder="Search...">
- 					<span class="input-group-btn">
- 						<button class="btn btn-default" type="button">
- 							<i class="fa fa-search"></i>
- 						</button>
- 					</span>
- 				</div>
-
- 			</li> --}}
+ 			
  			<li>
  				<a href="{{route('detail',Auth::id())}}" class="text-center">{{Auth::user()->profile->fullname}}</a>
  			</li>
@@ -40,7 +32,16 @@
  				<!-- /.nav-second-level -->
  			</li>
  			<li>
- 				<a href="#"><i class="fa fa-file-text-o fa-fw"></i> Văn bản pháp luật</a>
+ 				<a href="#"><i class="fa fa-file-text-o fa-fw"></i> Trao đổi công việc nội bộ<span class="fa arrow"></span></a>
+ 				<ul class="nav nav-second-level">
+
+ 					<li>
+ 						<a href="{{url('tao-cong-viec-trao-doi-noi-bo')}}">Tạo công việc</a>
+ 					</li>
+ 					<li>
+ 						<a href="{{url('danh-sach-cong-viec')}}">Xem công việc</a>
+ 					</li>
+ 				</ul>
  			</li>
  			<li>
  				<a href="#"><i class="fa fa-calendar fa-fw"></i> Lịch công tác<span class="fa arrow"></span></a>
@@ -50,15 +51,15 @@
  						<a href="{{url('lich-cong-tac',Auth::id())}}">Lịch công tác tuần cơ quan</a>
  					</li>
  					<li>
- 						<a href="{{url('lich-cong-tac-don-vi',Auth::id())}}">Lịch công tác tuần đơn vị</a>
+ 						<a href="{{url('lich-cong-tac-ca-nhan')}}">Lịch công tác tuần cá nhân</a>
  					</li>
  				</ul>
  			</li>
  			<li>
  				<a href="#" ><i class="fa fa-exchange fa-fw"></i> Xử lý công việc<span class="fa arrow"></span></a>
  				<ul class="nav nav-second-level">
- 					@if((Auth::user()->profile->role->nameRole=='lever_3') or
- 					(Auth::user()->profile->role->nameRole=='lever_2'))
+ 					@if((Auth::user()->profile->role->nameRole=='3') or
+ 					(Auth::user()->profile->role->nameRole=='2'))
  					<li>
  						<a href="{{route('newWork')}}">Tạo mới công việc</a>
  					</li>
@@ -79,7 +80,7 @@
  						<a href="{{url('van-ban-den')}}">Văn bản đến</a>
  					</li>
  					<li>
- 						<a href="{{url('cong-van-cap-tinh')}}">Văn bản đi </a>
+ 						<a href="{{url('danh-sach-van-ban-di')}}">Văn bản đi </a>
  					</li>
  					<li>
  						<a href="{{url('danh-sach-xu-ly-van-ban')}}">Xử lý văn bản</a>
@@ -87,29 +88,32 @@
  					<li>
  						<a href="{{url('so-van-ban')}}">Sổ văn bản</a>
  					</li>
+ 					<li>
+ 						<a href="{{url('loai-van-ban')}}">Loại văn bản</a>
+ 					</li>
  				</ul>
  				<!-- /.nav-second-level -->
  			</li>
  			
- 				<li>
- 					<a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
- 					<ul class="nav nav-second-level">
- 						<li>
- 							<a href="{{route('detail',Auth::id())}}">Xem thông tin</a>
- 						</li>
- 						<li>
- 							<a href="{{route('updateProfile',Auth::id())}}">Cập nhật thông tin</a>
- 						</li>
- 					</ul>
- 					<!-- /.nav-second-level -->
- 				</li>
- 				<li>
- 					<a href="{{url('so-do-to-chuc')}}"><i class="fa fa-sitemap fa-fw"></i> Sơ đồ tổ chức</a>
- 				</li>
- 				<li>
- 					<a href="{{route('logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
- 				</li>
- 			</ul>
- 		</div>
- 		<!-- /.sidebar-collapse -->
+ 			<li>
+ 				<a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
+ 				<ul class="nav nav-second-level">
+ 					<li>
+ 						<a href="{{route('detail',Auth::id())}}">Xem thông tin</a>
+ 					</li>
+ 					<li>
+ 						<a href="{{route('updateProfile',Auth::id())}}">Cập nhật thông tin</a>
+ 					</li>
+ 				</ul>
+ 				<!-- /.nav-second-level -->
+ 			</li>
+ 			<li>
+ 				<a href="{{url('so-do-to-chuc')}}"><i class="fa fa-sitemap fa-fw"></i> Sơ đồ tổ chức</a>
+ 			</li>
+ 			<li>
+ 				<a href="{{route('logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+ 			</li>
+ 		</ul>
  	</div>
+ 	<!-- /.sidebar-collapse -->
+ </div>

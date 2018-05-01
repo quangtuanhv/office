@@ -31,7 +31,7 @@ Route::get('news/{id?}', 'NewsController@getNews')->name('news');
 Route::post('news/{id?}', 'NewsController@postNews')->name('postnews');
 Route::get('listNews', 'NewsController@getlistNews')->name('listNews');
 Route::get('detail-news/{id?}', 'NewsController@getdetail')->name('detailNews');
-Route::post('{url}', 'NewsController@getDown')->name('download');
+Route::post('tinymce/source/{url}', 'NewsController@getDown')->name('download');
 Route::get('xulyComment', 'NewsController@ajaxCmt');
 Route::get('edit-tin-tuc/{id?}', 'NewsController@edit');
 Route::post('edit-news/{id?}', 'NewsController@UpdateNews');
@@ -48,14 +48,20 @@ Route::get('edit-work/{id}','WorksController@editWork');
 Route::post('edit-work/{id?}','WorksController@postEditWork')->name('editWork');
 
 // lịch cộng tác cơ quan
-Route::get('tao-moi-lich-cong-tac/{id?}', 'TaskController@getLich')->middleware('checkLever');	
+Route::get('tao-moi-lich-cong-tac/{id?}', 'TaskController@getLich')/*->middleware('checkLever')*/;	
 Route::get('tao-lich-cong-tac/', 'TaskController@postLich')->name('postLich');
 Route::get('lich-cong-tac/{id?}','TaskController@showLich');
+Route::get('edit-task/{id?}','TaskController@editTask');
+Route::post('save-edit-task/{id?}','TaskController@saveTask');
+Route::get('xoa-lich-cong-tac/{id?}','TaskController@delTask');
 
-//lịch công tác đơn vị
-Route::get('tao-moi-lich-cong-tac-don-vi/{id?}', 'TaskDonviController@getLich');
-Route::get('tao-lich-cong-tac-don-vi/', 'TaskDonviController@postLich')->name('postLich');
-Route::get('lich-cong-tac-don-vi/{id?}','TaskDonviController@showLich');
+//lịch công tác cá nhân
+Route::get('tao-moi-lich-cong-tac-ca-nhan', 'TaskDonviController@getLich');
+Route::get('tao-lich-cong-tac-ca-nhan', 'TaskDonviController@postLich')->name('postLich');
+Route::get('lich-cong-tac-ca-nhan','TaskDonviController@showLich');
+Route::get('edit-task-me/{id?}','TaskDonviController@editTask');
+Route::post('save-edit-task-me/{id?}','TaskDonviController@saveTask');
+Route::get('del-task/{id?}','TaskDonviController@delTask');
 //Công văn
 Route::get('xu-ly-cong-van/{id?}','DocumentController@newDocument');
 Route::post('save-document/{id?}','DocumentController@saveDocument')->name('save-document');
@@ -88,7 +94,25 @@ Route::get('tao-so-van-ban','DocumentController@gettaosovanban');
 Route::get('danh-sach-xu-ly-van-ban', 'DocumentController@getdsxuly');
 //vanbandi
 Route::get('tao-van-ban-di','DocumentController@gettaovanbandi');
+Route::get('danh-sach-van-ban-di','DocumentController@getdanhsachvanbandi');
 
-Route::get('tao-van-ban-tra-loi/{id?}','DocumentController@getReply');
-Route::post('tra-loi-cong-van/{id?}','DocumentController@postReplyDocument');
+
+//
+Route::get('loai-van-ban','DocumentController@getdanhsachloaivanban');
+Route::get('danh-sach-the-loai-van-ban/{id?}', 'DocumentController@getloaivanbantuongung');
+Route::get('tao-the-loai-van-ban','DocumentController@gettaotheloaivanban');
+Route::post('tao-the-loai-van-ban/{id?}','DocumentController@posttaotheloaivanban');
+Route::get('del-bai-viet/{id?}','DocumentController@xoabaiviet');
+
+//cv noi bo
+Route::get('tao-cong-viec-trao-doi-noi-bo', 'HandlController@gettaocongviecnoibo');
+Route::post('posthandl/{id?}', 'HandlController@posttaocongviecnoibo');
+Route::get('danh-sach-cong-viec','HandlController@getdanhsach');
+Route::get('chi-tiet-trao-doi-cong-viec/{id?}','HandlController@getchitiet');
+Route::post('post-cmt/{id?}','HandlController@postcmt');
+Route::get('xoa-cong-viec/{id?}','HandlController@deleteTask');
+Route::get('dong-cong-viec/{id?}','HandlController@closeTask');
+//In so van ban
+Route::get('loc-so-van-ban', 'WordController@getsovanban');
+Route::post('create-file-word','WordController@ExportWord');
 });

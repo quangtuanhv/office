@@ -38,4 +38,11 @@ class Profile extends Model {
 	public function xulyvanban(){
 		return $this->hasMany('App\XuLyVanBan','nguoixuly','id');
 	}
+
+	public function hosophoihop(){
+		return $this->hasMany('App\HoSoPhoiHop','nguoisoan','id');
+	}
+	public function xulyhosophoihop(){
+		return $this->hasMany('App\XuLyHoSoPhoiHop','nguoigopy','id');
+	}
 }

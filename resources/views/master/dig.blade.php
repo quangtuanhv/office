@@ -1,9 +1,8 @@
 @extends('master.index')
 @section('content')
-<div id="page-wrapper">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-9 col-md-offset-0 toppad " >
+			<div class="col-md-12 col-md-offset-0 toppad " >
 				<center>
 					<div class="col-lg-12">
 						<h1 class="page-header">
@@ -16,5 +15,4 @@
 			</div>
 		</div>
 	</div>
-</div>
 @endsection

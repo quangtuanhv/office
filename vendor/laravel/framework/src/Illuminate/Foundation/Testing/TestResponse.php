@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Traits\Macroable;
 use PHPUnit\Framework\Assert as PHPUnit;
+use Illuminate\Foundation\Testing\Constraints\SeeInOrder;
 
 /**
  * @mixin \Illuminate\Http\Response
@@ -64,6 +65,36 @@ class TestResponse
     }
 
     /**
+     * Assert that the response has a not found status code.
+     *
+     * @return $this
+     */
+    public function assertNotFound()
+    {
+        PHPUnit::assertTrue(
+            $this->isNotFound(),
+            'Response status code ['.$this->getStatusCode().'] is not a not found status code.'
+        );
+
+        return $this;
+    }
+
+    /**
+     * Assert that the response has a forbidden status code.
+     *
+     * @return $this
+     */
+    public function assertForbidden()
+    {
+        PHPUnit::assertTrue(
+            $this->isForbidden(),
+            'Response status code ['.$this->getStatusCode().'] is not a forbidden status code.'
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the response has the given status code.
      *
      * @param  int  $status
@@ -94,7 +125,9 @@ class TestResponse
         );
 
         if (! is_null($uri)) {
-            PHPUnit::assertEquals(app('url')->to($uri), $this->headers->get('Location'));
+            PHPUnit::assertEquals(
+                app('url')->to($uri), app('url')->to($this->headers->get('Location'))
+            );
         }
 
         return $this;
@@ -248,7 +281,7 @@ class TestResponse
      */
     public function assertSee($value)
     {
-        PHPUnit::assertContains($value, $this->getContent());
+        PHPUnit::assertContains((string) $value, $this->getContent());
 
         return $this;
     }
@@ -261,20 +294,7 @@ class TestResponse
      */
     public function assertSeeInOrder(array $values)
     {
-        $position = 0;
-
-        foreach ($values as $value) {
-            $valuePosition = mb_strpos($this->getContent(), $value, $position);
-
-            if ($valuePosition === false || $valuePosition < $position) {
-                PHPUnit::fail(
-                    'Failed asserting that \''.$this->getContent().
-                    '\' contains "'.$value.'" in specified order.'
-                );
-            }
-
-            $position = $valuePosition + mb_strlen($value);
-        }
+        PHPUnit::assertThat($values, new SeeInOrder($this->getContent()));
 
         return $this;
     }
@@ -287,7 +307,7 @@ class TestResponse
      */
     public function assertSeeText($value)
     {
-        PHPUnit::assertContains($value, strip_tags($this->getContent()));
+        PHPUnit::assertContains((string) $value, strip_tags($this->getContent()));
 
         return $this;
     }
@@ -300,20 +320,7 @@ class TestResponse
      */
     public function assertSeeTextInOrder(array $values)
     {
-        $position = 0;
-
-        foreach ($values as $value) {
-            $valuePosition = mb_strpos(strip_tags($this->getContent()), $value, $position);
-
-            if ($valuePosition === false || $valuePosition < $position) {
-                PHPUnit::fail(
-                    'Failed asserting that \''.strip_tags($this->getContent()).
-                    '\' contains "'.$value.'" in specified order.'
-                );
-            }
-
-            $position = $valuePosition + mb_strlen($value);
-        }
+        PHPUnit::assertThat($values, new SeeInOrder(strip_tags($this->getContent())));
 
         return $this;
     }
@@ -326,7 +333,7 @@ class TestResponse
      */
     public function assertDontSee($value)
     {
-        PHPUnit::assertNotContains($value, $this->getContent());
+        PHPUnit::assertNotContains((string) $value, $this->getContent());
 
         return $this;
     }
@@ -339,7 +346,7 @@ class TestResponse
      */
     public function assertDontSeeText($value)
     {
-        PHPUnit::assertNotContains($value, strip_tags($this->getContent()));
+        PHPUnit::assertNotContains((string) $value, strip_tags($this->getContent()));
 
         return $this;
     }
